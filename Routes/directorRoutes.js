@@ -4,7 +4,7 @@ const getDirectors = (req, res) => {
   client.query("SELECT * FROM director", (err, result) => {
     if (err) {
       console.log(err.message);
-      res.status(404).send({ error: "Technical issue" });
+      res.status(404).send({ error });
     } else {
       res.status(200).send(result.rows);
     }
@@ -25,11 +25,11 @@ const insertUser = async (fullname, description, imageurl) => {
 
 const addNewDirector = async (req, res) => {
   const { fullname, description, imageurl } = req.body;
-  const data = await insertUser(fullname, description, imageurl);
-  if (data.data) {
+  const {data,error} = await insertUser(fullname, description, imageurl);
+  if (data) {
     res.status(200).send(data);
   } else {
-    res.status(404).send({ error: "technical issue" });
+    res.status(404).send({error});
   }
 };
 
