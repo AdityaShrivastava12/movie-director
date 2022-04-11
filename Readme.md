@@ -19,7 +19,7 @@
     CREATE TABLE Director(
     id SERIAL PRIMARY KEY,
     fullname VARCHAR(25),
-    bio VARCHAR(255),
+    description VARCHAR(255),
     imageurl VARCHAR(255),
     createdat DATE DEFAULT CURRENT_DATE
     );
