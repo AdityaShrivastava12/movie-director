@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const client = require("./connection");
+var cors = require('cors');
 const {
   getDirectors,
   addNewDirector,
@@ -13,7 +14,7 @@ const { getAllMovies, addMovie, getMovieById, editMovie, deleteMovie, getAllMovi
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(cors());
 app.use(function (req, res, next) {
 
   // Website you wish to allow to connect
