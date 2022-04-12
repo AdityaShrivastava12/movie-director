@@ -19,11 +19,12 @@ const addMovie = (req, res) => {
     movieposter,
     categories,
     leadroles,
+    rating
   } = req.body;
   categories = categories.split(",");
   leadroles = leadroles.split(",");
   const queryString =
-    "INSERT INTO movies(director_id, moviename,moviedesc,movieposter,categories,leadroles) VALUES($1, $2, $3, $4, $5, $6) RETURNING *";
+    "INSERT INTO movies(director_id, moviename,moviedesc,movieposter,categories,leadroles,rating) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *";
   const values = [
     director_id,
     moviename,
@@ -31,6 +32,7 @@ const addMovie = (req, res) => {
     movieposter,
     categories,
     leadroles,
+    rating
   ];
   client.query(queryString, values, (error, result) => {
     if (error) {
@@ -54,10 +56,10 @@ const getMovieById = (req, res) => {
 };
 const editMovie = (req, res) => {
   const movieId = req.params.id;
-  let { moviename, moviedesc, movieposter, categories, leadroles } = req.body;
+  let { moviename, moviedesc, movieposter, categories, leadroles, rating } = req.body;
   categories = `{${categories}}`;
   leadroles = `{${leadroles}}`;
-  const queryString = `UPDATE movies SET moviename='${moviename}',moviedesc='${moviedesc}',movieposter='${movieposter}',categories='${categories}',leadroles='${leadroles}' WHERE id='${movieId}' RETURNING *`;
+  const queryString = `UPDATE movies SET moviename='${moviename}',moviedesc='${moviedesc}',movieposter='${movieposter}',categories='${categories}',leadroles='${leadroles}',rating='${rating}' WHERE id='${movieId}' RETURNING *`;
   client.query(queryString, (error, result) => {
     if (error) {
       return res.status(404).send({ error: "Technical issue" });
